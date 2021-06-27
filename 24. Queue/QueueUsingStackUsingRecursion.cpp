@@ -6,7 +6,6 @@ using namespace std;
 class queue
 {
     stack<int> s1;
-    stack<int> s2;
 
 public:
     void push(int x)
@@ -16,27 +15,22 @@ public:
 
     int pop()
     {
-        if (s1.empty() && s2.empty())
+        if (s1.empty())
         {
             cout << "Queue is Empty" << endl;
             return -1;
         }
-        if (s2.empty())
-        {
-            while (!s1.empty())
-            {
-                s2.push(s1.top());
-                s1.pop();
-            }
-        }
-        int topVal = s2.top();
-        s2.pop();
-        return topVal;
+        int x = s1.top();
+        s1.pop();
+        if (s1.empty())
+            return x;
+        int item = pop();
+        s1.push(x);
+        return item;
     }
-
     bool empty()
     {
-        if (s1.empty() && s2.empty())
+        if (s1.empty())
             return true;
         return false;
     }
@@ -44,7 +38,6 @@ public:
 
 int main()
 {
-
     queue q;
     q.push(1);
     q.push(2);
